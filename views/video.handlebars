@@ -1,14 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<body>
 <h1>Video rabelz</h1>
-
-
 <dl>
-	<dt>Video id:</dt>
-	<dd>{{videoid}}</dd>
-	<dt>Mute:</dt>
-	<dd>{{mute}}</dd>
-	<dt>Soundtrack:</dt>
-	<dd>{{soundtrack}}</dd>
-	<dt>Playback rate:</dt>
-	<dd>{{playbackrate}}</dd>
+  <dt>Video id:</dt>
+  <dd>{{videoid}}</dd>
+  <dt>Mute:</dt>
+  <dd>{{mute}}</dd>
+  <dt>Soundtrack:</dt>
+  <dd>{{soundtrack}}</dd>
+  <dt>Playback rate:</dt>
+  <dd>{{playbackrate}}</dd>
 </dl>
+<div id="player"></div>
+<script>
+    //Load player api asynchronously.
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var done = false;
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'JW5meKfy3fY',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+    }
+    function onPlayerReady(evt) {
+        evt.target.playVideo();
+    }
+    function onPlayerStateChange(evt) {
+        if (evt.data == YT.PlayerState.PLAYING && !done) {
+            setTimeout(stopVideo, 6000);
+            done = true;
+        }
+    }
+    function stopVideo() {
+        player.stopVideo();
+    }
+</script>
+</body>
+</html>
+
 
