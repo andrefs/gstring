@@ -2,16 +2,6 @@
 <html>
 <body>
 <h1>Video rabelz</h1>
-<dl>
-  <dt>Video id:</dt>
-  <dd>{{videoid}}</dd>
-  <dt>Mute:</dt>
-  <dd>{{mute}}</dd>
-  <dt>Soundtrack:</dt>
-  <dd>{{soundtrack}}</dd>
-  <dt>Playback rate:</dt>
-  <dd>{{playbackrate}}</dd>
-</dl>
 <div id="player"></div>
 <script>
     //Load player api asynchronously.
@@ -23,29 +13,35 @@
     var player;
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-          height: '390',
-          width: '640',
-          videoId: '{{videoid}}',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+          height      : '390',
+          width       : '640',
+		  playerVars  : { controls     : 0 },
+          videoId     : '{{videoid}}',
+          events      : {
+            'onReady'       : onPlayerReady,
+            'onStateChange' : onPlayerStateChange
           }
         });
     }
     function onPlayerReady(evt) {
+		console.log(player.isMuted());
+		{{#if mute}}
+			player.mute();
+		{{/if}}
         evt.target.playVideo();
     }
     function onPlayerStateChange(evt) {
-        if (evt.data == YT.PlayerState.PLAYING && !done) {
-            setTimeout(stopVideo, 6000);
-            done = true;
-        }
+		var audio_tag = document.getElementById('audio_tag');
+		if(evt.data === 1)       audio_tag.play();
+		else if (evt.data === 2) audio_tag.pause();
     }
     function stopVideo() {
         player.stopVideo();
     }
 </script>
+<audio id="audio_tag" loop="loop">
+  <source src="/sounds/{{soundtrack}}.ogg" type="audio/ogg"  />
+</audio>
 </body>
 </html>
-
 
