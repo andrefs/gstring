@@ -1,20 +1,35 @@
-<h1>Example App: Home</h1>
+<h1>Besterestest</h1>
 <form id="mainform" action="video" method="get">
-	<input  id="videoid" name="videoid"/>
-	<select id="soundtrack" name="soundtrack"/>
-		<option value="airgstring">Bach's Air on a G String</option>
-		<option value="bennyhill">Benny Hill theme</option>
-		<option value="finalcountdown">Europe's The Final Countdown</option>
-		<option value="chariotsfire">Vangelis' Chariots of Fire</option>
-		<option value="imperialmarch">Star Wars' Imperial March</option>
-	</select>
-	<select id="playbackrate" name="playbackrate">
-		<option>0.25</option>
-		<option>0.5</option>
-		<option>1</option>
-		<option>1.5</option>
-		<option>2</option>
-	</select>
-	<input type="checkbox" name="mute" id="mute">Mute video?</input>
-	<input type="submit">
+	<p>
+		<label for="videoid">YouTube video:</label>
+		<input id="videoid" name="videoid"/>
+	</p>
+	<p>
+		<label for="soundtrack">Soundtrack:</label>
+		<select id="soundtrack" name="soundtrack"/>
+			<option value="airgstring">Bach's Air on a G String</option>
+			<option value="bennyhill">Benny Hill theme</option>
+			<option value="finalcountdown">Europe's The Final Countdown</option>
+			<option value="chariotsfire">Vangelis' Chariots of Fire</option>
+			<option value="imperialmarch">Star Wars' Imperial March</option>
+		</select>
+	</p>
+	<p>
+		<label for="playbackrate">Playback speed:</label>
+		<select id="playbackrate" name="playbackrate">
+			<option value="0.5">Slow down</option>
+			<option value="1.5">Speed up</option>
+		</select>
+	</p>
+	<p>
+		<label for="mute">Mute video:</label>
+		<input type="checkbox" name="mute" id="mute" checked>Mute video?</input>
+	</p>
+	<p>
+		<label for="sv_id">Video for soundtrack:</label>
+		<input id="sv_id" name="sv_id"/>
+	</p>
+	<p>
+		<input type="submit">
+	</p>
 </form>
