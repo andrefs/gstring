@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-<h1>Video rabelz</h1>
+<h1>{{short_url}}</h1>
 <div id="player"></div>
 <script>
     //Load player api asynchronously.
@@ -15,7 +15,15 @@
         player = new YT.Player('player', {
           height      : '390',
           width       : '640',
-		  playerVars  : { controls     : 0 },
+		  playerVars  : { 
+			  controls       : 0,
+			  iv_load_policy : 3,
+			  rel            : 0,
+			  showinfo       : 0,
+			  modestbranding : 0,
+			  loop           : 1,
+			  playlist       : '{{videoid}}'
+			},
           videoId     : '{{videoid}}',
           events      : {
             'onReady'       : onPlayerReady,
@@ -24,7 +32,6 @@
         });
     }
     function onPlayerReady(evt) {
-		console.log(player.isMuted());
 		{{#if mute}}
 			player.mute();
 		{{/if}}
@@ -32,8 +39,18 @@
     }
     function onPlayerStateChange(evt) {
 		var audio_tag = document.getElementById('audio_tag');
-		if(evt.data === 1)       audio_tag.play();
-		else if (evt.data === 2) audio_tag.pause();
+		if(evt.data === 1){
+			audio_tag.play();
+			{{#if playbackrate}}
+				player.setPlaybackRate({{playbackrate}});
+			{{/if}}
+		}
+		else if (evt.data === 2){
+			setTimeout(function(){
+				if(player.getPlayerState() !== 1)
+					audio_tag.pause();
+			},1000);
+		}
     }
     function stopVideo() {
         player.stopVideo();
