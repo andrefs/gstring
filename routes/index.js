@@ -5,7 +5,7 @@ exports.index = function (req, res) {
 
 exports.video = function (req,res){
 	var videoid;
-	if(req.query.videoid.match(/v=(\w+)/)) 	videoid = RegExp.$1;
+	if(req.query.videoid.match(/v=([-\w]+)/)) 	videoid = RegExp.$1;
 	else 									videoid = req.query.videoid;
 
 	var full_url  = req.protocol + "://" + req.get('host') + req.url;
